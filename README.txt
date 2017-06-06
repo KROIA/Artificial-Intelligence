@@ -1,4 +1,7 @@
-Künstliche Intelligenz
+****Mit Notepad++ Ã¶ffnen****
+
+
+KÃ¼nstliche Intelligenz
 //--------------
 Autor Alex Krieg
 Datum 6.6.2017
@@ -20,17 +23,17 @@ Datei: config.txt {
 	animal_hiddenUnitsX 8				//Neuronen siehe Bild
 	animal_hiddenUnitsY 1				//^
 	animal_outputUnits 4				//^
-	animal_mutationRate 0.1000			//Wie gross die Wahrscheinlichkeit ist dass ein Gewicht in jedem gen random ändert (1 = ändert immer, 0 = ändert nie)
-	animal_food 10						//Anzahl Essen das beim Start zur verfügung steht
+	animal_mutationRate 0.1000			//Wie gross die Wahrscheinlichkeit ist dass ein Gewicht in jedem gen random Ã¤ndert (1 = Ã¤ndert immer, 0 = Ã¤ndert nie)
+	animal_food 10						//Anzahl Essen das beim Start zur verfÃ¼gung steht
 	animals 100							//Mit wie vielen Lebewesen gelernt wird
 	stopTimeLearn 500					//Zeit in ms wie lange ein Lebewesen zeit hat, wenn es nie stirbt bis es stierbt
-	stopTimeTest 50000					//Das selbe, aber nur wärend der Testphase
-	debug_pauseIntervallFile 50			//Das selbe, aber für die Speicherung der Daten
+	stopTimeTest 50000					//Das selbe, aber nur wÃ¤rend der Testphase
+	debug_pauseIntervallFile 50			//Das selbe, aber fÃ¼r die Speicherung der Daten
 	debug_guiUpdate 1000				//Update der Konsole, ist nur in der Trainingsphase so
-	debug_averageSize 100				//Auf wie viele Generationen der Durchschnitt zählt (Hoch -> sanfte Kurve Tief -> turbulente Kurve)
+	debug_averageSize 100				//Auf wie viele Generationen der Durchschnitt zÃ¤hlt (Hoch -> sanfte Kurve Tief -> turbulente Kurve)
 	debug_saveBiggestIntervall 10		//Wie oft der beste gespeichert wird
-	environment_maxIllegalMoves 3		//Anzahl wie oft ein Lebewesen hin und her hüpfen darf bevor es dadurch stirbt
-	environment_mapSize 20				//Grösse der Map x*x
+	environment_maxIllegalMoves 3		//Anzahl wie oft ein Lebewesen hin und her hÃ¼pfen darf bevor es dadurch stirbt
+	environment_mapSize 20				//GrÃ¶sse der Map x*x
 	environment_foodAmount 10			//Anzahl Futter das auf der Map gefunden werden kann
 	environment_feedAmount 10			//Anzahl Essen das dem Lebewesen gegeben wird wenn es ein Futter frisst
 	environment_obsticleAmount 10		//Anzahl Hindernisse auf der Map
@@ -41,9 +44,9 @@ Datei: config.txt {
 }
 //------------------------------------------------------------------------
 Dieser Code kann frei verwendet werden,
-ich würde mich freuen wenn ich weiss wo 
-der Code überall seine Verwendung findet. 
-Falls ihr eine Anleitung benötigt wie man eigenes 
+ich wÃ¼rde mich freuen wenn ich weiss wo 
+der Code Ã¼berall seine Verwendung findet. 
+Falls ihr eine Anleitung benÃ¶tigt wie man eigenes 
 Projekt erstellt und das Netzwerk implementiert,
  der soll mich kontaktieren.
 //-----------------------------------SUPPORT------------------------------
