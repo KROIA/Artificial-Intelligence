@@ -1,3 +1,5 @@
+******mit Notepad++ öffnen******
+
 # Artificial-Intelligence
 Künstliche Intelligenz
 //--------------
