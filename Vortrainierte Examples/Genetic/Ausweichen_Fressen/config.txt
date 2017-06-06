@@ -1,0 +1,23 @@
+START
+animal_inputUnits 29
+animal_hiddenUnitsX 30
+animal_hiddenUnitsY 1
+animal_outputUnits 4
+animal_mutationRate 0.0100
+animal_food 10
+animals 100
+stopTimeLearn 1500
+stopTimeTest 120000
+debug_pauseIntervallFile 1000
+debug_guiUpdate 1000
+debug_averageSize 300
+debug_saveBiggestIntervall 100
+environment_maxIllegalMoves 3
+environment_mapSize 20
+environment_foodAmount 10
+environment_feedAmount 10
+environment_obsticleAmount 15
+startDirection 0
+TestMode 1
+TestModeSpeed 10
+ENDE

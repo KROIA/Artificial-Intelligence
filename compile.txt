@@ -1,0 +1,8 @@
+Programm Kompilieren:
+
+Compiler: g++ von MinGW
+
+1.	Installieren von MinGW
+2.	Installieren vom g++ innerhalb von MinGW
+3.	Eingabeaufforderung: 	cd ...\MinGW\bin
+4.				g++ ...\xOR\xOR.cpp -static-libgcc -static-libstdc++ -o ...\xOR\xOR.exe

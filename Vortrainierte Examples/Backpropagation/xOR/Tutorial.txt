@@ -1,0 +1,30 @@
+1.	Starte die xOR.exe, es öffnet sich eine Konsole dort
+	muss man unter Umständen noch die Fenstergrösse einstellen um 
+	Flackern vermeiden zu können.
+	Das Neuronale Netzwerk beginnt direkt damit das XOR Problem zu lösen
+	Im selben Ordner wie die EXE ist wird eine Datei "a.txt" erstellt, 
+	sie beinhaltet in der ersten Zeile "inputs" "hiddenX" "hiddenY" "Outputs".
+	In der zweiten Zeile sind alle Gewichte der ersten Hidden Schicht.
+	In der dritten Zeile sind alle Gewichte der nächsten Hidden Schicht usw. 
+	In der untersten Zeile sind dann noch alle Gewichte der Outputs.
+	
+	Das Programm generiert die Datei "Error.csv". 
+	Mit der Datei kann man die Lernkurve vom Netzwerk einsehen, dazu öffnet man 
+	sie und markiert die ganze spalte "a" und fügt eine Tabelle ein.
+	Man wird fast nichts erkennen um dies beheben zu können muss man die Tabelle 
+	anklicken und die ersten Paar Werte aus der Liste entfernen.
+	Eventuell muss man Excel noch so einstellen das auch "." als "," gilt.
+
+2.	Sobald ein gewisser Error vom Netzwerk unterschritten wird wird die 
+	Trainingsphase beendet und die Testphase gestartet.
+	Man sieht in der Konsole wie viele Durchläufe gebraucht wurden um ans Ziel zu kommen.
+	
+	Im 1sec Intervallen werden die Test Daten dem Netzwerk übergeben und geschaut
+	was es als Output gibt.
+
+3.	Sollte das Training zu lange gehen und man möchte es unterbrechen, kann man das 
+	Programm einfach schliessen. Die Gewichtungen sind ja gespeichert und werden beim nächsten Start 
+	wider aufgerufen.
+	Man kann nicht verschiedene Netzwerke dieselben "a.txt"s geben da sie ja 
+	verschiedene Neuronen Anzahlen haben können.
+
