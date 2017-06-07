@@ -4,7 +4,7 @@ animal_hiddenUnitsX 30
 animal_hiddenUnitsY 1
 animal_outputUnits 4
 animal_mutationRate 0.0100
-animal_food 10
+animal_food 20
 animals 100
 stopTimeLearn 1500
 stopTimeTest 120000
