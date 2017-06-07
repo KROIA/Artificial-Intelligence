@@ -2,12 +2,12 @@
  
 Autor 	Alex Krieg
 Datum  	6.6.2017
-Version 5.3
+Version 5.31
 
 
 
 */
-const float VERSION = 5.3;
+const float VERSION = 5.31;
 #include "E:\Users\Alex\Documents\C++\libraries\Net\Versionen\2.0\Net.h"
 #include "E:\Users\Alex\Documents\C++\libraries\Net\Versionen\2.0\Net.cpp"
 #include "E:\Users\Alex\Documents\C++\libraries\Timer\Timer.h"
@@ -1089,10 +1089,10 @@ void readConfg()
 				if(mutation < 0){mutation = 0;}
 				printf("animal_mutationRate: %.4f\n",mutation);
 			}
-			if(strcmp(Input,"animal_foodfood")==0){
+			if(strcmp(Input,"animal_food")==0){
 				fscanf(config,"%i",&food_Config);
 				if(food_Config < 1){food_Config = 1;}
-				printf("animal_foodfood: %i\n",food_Config);
+				printf("animal_food: %i\n",food_Config);
 			}
 			if(strcmp(Input,"animals")==0){
 				fscanf(config,"%i",&animals);
