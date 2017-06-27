@@ -55,8 +55,6 @@ private:
 class Net
 {
 public:
-	#ifdef genetic 
-			#endif
 	#ifdef backprop
 		Net(int inputs,int hiddenX,int hiddenY,int outputs,float fac);	//X -> Neurons/Layer Y-> anz hidden Layer
 		float getOutput(int out);

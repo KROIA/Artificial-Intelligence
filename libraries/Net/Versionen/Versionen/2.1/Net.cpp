@@ -39,8 +39,8 @@ void 	Neuron::setup(int in,float fac){
 		inputs[a].weight= inputs[a].weight/100;
 		inputs[a].last_weight 	= inputs[a].weight ;
 	}
-	delete &in;
-	delete &fac;
+	//delete &in;
+	//delete &fac;
 }
 void 	Neuron::setInput(float DATA[]){
 	for( a = 0; a<anzInputs; a++)
@@ -63,7 +63,7 @@ void 	Neuron::setInput(float DATA[]){
 	result = (1.0/(1.0+exp(-result)));
 	#endif
 
-	delete &DATA;
+	//delete &DATA;
 }
 float 	Neuron::getOutput(){
 	return result;
@@ -77,8 +77,8 @@ void 	Neuron::calculateError(float nextError[],int anzPins){
 	}
 	error = error * result * (1-result);
 	
-	delete &nextError;
-	delete &anzPins;
+	//delete &nextError;
+	//delete &anzPins;
 }
 float 	Neuron::getErrorBack(int input){
 	return error * inputs[input].weight;
@@ -91,8 +91,8 @@ void 	Neuron::changeWeights(float NetError){
 		inputs[a].weight = inputs[a].weight + (inputs[a].data * inputs[a].last_weight * error *factor);
 		inputs[a].last_weight = 1.0;
 	}
-	delete &tmp1;
-	delete &tmp2;
+	//delete &tmp1;
+	//delete &tmp2;
 }
 //----------------------------------NET----------------------------------
 #ifdef genetic 
@@ -101,7 +101,6 @@ Net::Net(int inputs,int hiddenX,int hiddenY,int outputs,int ani,float mutat){
 #ifdef backprop
 Net::Net(int inputs,int hiddenX,int hiddenY,int outputs,float fac){
 #endif	
-	
 	//Für for() loops
 	a					= 0;
 	b					= 0;
@@ -140,9 +139,10 @@ Net::Net(int inputs,int hiddenX,int hiddenY,int outputs,float fac){
 	geneticSize 	= ((inputUnits+1) * hiddenUnitsX)+(((hiddenUnitsX+1)* hiddenUnitsX) * (hiddenUnitsY-1))+((hiddenUnitsX+1)*outputUnits); //Alle Gewichtungen hintereinander
 	vector<float> tmpVecGen(geneticSize,0);	//Random Werte
 	vector<float> tmpVecGenOut(geneticSize,0);
+	FullOutOfAnimal = vector<vector<float>	> (animals,vector<float>(outputUnits,0));
 	for(b = 0; b<animals; b++)
 	{
-		FullOutOfAnimal.push_back(tmpVecGenOut);	//Erstellt Output Speicher der animals
+		//FullOutOfAnimal.push_back(tmpVecGenOut);	//Erstellt Output Speicher der animals
 		Genetic.push_back(tmpVecGen);				//Erstellt die random Genome
 		for(a = 0; a<geneticSize; a++)
 		{
@@ -153,17 +153,20 @@ Net::Net(int inputs,int hiddenX,int hiddenY,int outputs,float fac){
 	#endif
 	//---------------------------------------------
 	//-------------Make-Neurons--------------------		
-	vector<Neuron> tmpVec(hiddenUnitsX,Neuron());
+	
+	HiddenLayers = vector<vector<Neuron>	>	(hiddenUnitsY,vector<Neuron>(hiddenUnitsX,Neuron()));
+	//---
+	/*vector<Neuron> tmpVec(hiddenUnitsX,Neuron());
 	for(a = 0; a<hiddenUnitsY; a++)
 	{
 		HiddenLayers.push_back(tmpVec);
 	}
-	
+	*/
 	OutputLayer 		= new Neuron[outputUnits];
 	
 	for(a = 0; a<hiddenUnitsX; a++)
 	{
-		HiddenLayers[0][a].setup(inputs,factor); 
+		HiddenLayers[0][a].setup(inputUnits,factor); 
 	}
 	for(a = 1; a<hiddenUnitsY; a++)
 	{
@@ -177,13 +180,13 @@ Net::Net(int inputs,int hiddenX,int hiddenY,int outputs,float fac){
 		OutputLayer[a].setup(hiddenUnitsX,factor);	
 	}
 	
-	delete &inputs;
+	/*delete &inputs;
 	delete &hiddenX;
 	delete &hiddenY;
-	delete &outputs;
+	delete &outputs;*/
 	#ifdef genetic
-	delete &ani;
-	delete &mutat;
+	//delete &ani;
+	//delete &mutat;
 	tmpVecGen.clear();
 	tmpVecGenOut.clear();
 	#endif
@@ -281,14 +284,14 @@ void Net::loadData(char* file){
   
   }
   fclose (Myfile);
-  
+ /* 
    delete &tmpInput1;
    delete &tmpInput2;
    delete &tmpInput3;
    delete &tmpInput4;
    delete &tmpInput5;
    delete &tmp;
-   delete &file;
+   delete &file;*/
 }
 void Net::saveData(char* file){
 	Myfile = fopen (file,"w");
@@ -342,7 +345,7 @@ void Net::saveData(char* file){
 	}
 	#endif
 	fclose (Myfile);
-	delete &file;
+	//delete &file;
 }
 #ifdef backprop
 void Net::setInputUnits(float input[]){
@@ -351,6 +354,8 @@ void Net::setInputUnits(float input[]){
 void Net::setInputUnits(float input[],int animal){
 	
 	c = animal;
+	a = 0;
+	b = 0;
 	C1 = 0; 
 	C2 = 0;
 	C3 = 0;
@@ -387,7 +392,10 @@ void Net::setInputUnits(float input[],int animal){
 			}
 		}
 		//------------------------------------------------------------------------
+	
 	#endif
+
+	
 		float tmp[hiddenUnitsY][hiddenUnitsX];
 		for( a = 0; a<hiddenUnitsX; a++)	//Inputs to the first hidden unit
 		{
@@ -417,10 +425,11 @@ void Net::setInputUnits(float input[],int animal){
 	
 	
 	steps++;
-	delete &input;
+	//delete &input;
 	#ifdef genetic
-	delete &animal;
+	//delete &animal;
 	#endif
+	
 }
 void 	Net::debug(){
 	int abstandRight = 1;
@@ -457,14 +466,14 @@ void 	Net::debug(){
 			{
 				for(b=0; b<inputUnits+1; b++)
 				{
-					printf("%.3f\t",HiddenLayers[c][a].inputs[b].data);
+					printf("%.3f \t",HiddenLayers[c][a].inputs[b].data);
 				}
 			}
 			else
 			{
 				for(b=0; b<hiddenUnitsX+1; b++)
 				{
-					printf("%.3f\t",HiddenLayers[c][a].inputs[b].data);
+					printf("%.3f \t",HiddenLayers[c][a].inputs[b].data);
 				}
 			}
 			cord.X = cord.X +8+((inputUnits+1) * 8);
@@ -501,14 +510,14 @@ void 	Net::debug(){
 			{
 				for(b=0; b<inputUnits+1; b++)
 				{
-					printf("\t%.3f",HiddenLayers[c][a].inputs[b].weight);
+					printf("\t%.3f ",HiddenLayers[c][a].inputs[b].weight);
 				}
 			}
 			else
 			{
 				for(b=0; b<hiddenUnitsX+1; b++)
 				{
-					printf("\t%.3f",HiddenLayers[c][a].inputs[b].weight);
+					printf("\t%.3f ",HiddenLayers[c][a].inputs[b].weight);
 				}
 			}
 			cord.X = cord.X +8+((inputUnits+1) * 8);
@@ -519,7 +528,7 @@ void 	Net::debug(){
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cord);
 		for(a=0;a<hiddenUnitsX; a++)
 		{
-			printf("%.3f",HiddenLayers[c][a].getOutput());
+			printf("%.3f ",HiddenLayers[c][a].getOutput());
 			
 			cord.X = cord.X +8+((inputUnits+1) * 8);
 			SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cord);
@@ -541,7 +550,7 @@ void 	Net::debug(){
 	{
 		for(b=0; b<hiddenUnitsX+1; b++)
 		{
-			printf("%.3f\t",OutputLayer[a].inputs[b].data);
+			printf("%.3f \t",OutputLayer[a].inputs[b].data);
 		}
 		cord.X = cord.X +8+((hiddenUnitsX+1) * 8);
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cord);
@@ -565,7 +574,7 @@ void 	Net::debug(){
 	{
 		for(b=0; b<hiddenUnitsX+1; b++)
 		{
-			printf("\t%.3f",OutputLayer[a].inputs[b].weight);
+			printf("\t%.3f ",OutputLayer[a].inputs[b].weight);
 		}
 		cord.X = cord.X +8+((hiddenUnitsX+1) * 8);
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cord);
@@ -577,7 +586,7 @@ void 	Net::debug(){
 	{
 		
 		
-		printf("%.3f",OutputLayer[a].getOutput());
+		printf("%.3f ",OutputLayer[a].getOutput());
 		
 		cord.X = cord.X +8+((hiddenUnitsX+1) * 8);
 		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cord);
@@ -585,7 +594,7 @@ void 	Net::debug(){
 	#ifdef backprop
 	cord.X = 0;	cord.Y+= 5;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cord);
-	printf("NetError:\t%.5f",netError);
+	printf("NetError:\t%.5f ",netError);
 	#endif
 	cord.X = 0;	cord.Y = 2; //Start pos
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cord);
@@ -653,20 +662,20 @@ void 	Net::learn(float AnimalFitness[]){
 			{
 				OutputLayer[a].changeWeights(netError);
 			}
-			delete &tmp2;
-			delete &tmp3;
+			//delete &tmp2;
+			//delete &tmp3;
 			
 			//-------------------------------------------------------------------------
 		}
-		delete &improve;
-		delete &expactet;
+		//delete &improve;
+		//delete &expactet;
 		#endif 
 		#ifdef genetic
 		//---------------CROSSOVER--------------
 		
 //#define D	
-		vector<vector<float>	> tmpGenetic;
-		vector<float> tmpVecTmpGen(geneticSize,0);
+		vector<vector<float>	> tmpGenetic(animals,vector<float>(geneticSize,0));
+		//vector<float> tmpVecTmpGen(geneticSize,0);
 		int crossoverRandom;
 		int crossoverRandom2 = 0;
 		float gs = 0.0;
@@ -684,7 +693,7 @@ void 	Net::learn(float AnimalFitness[]){
 			#ifdef D
 				printf("%.5f\n", AnimalFitness[a]);
 			#endif
-			tmpGenetic.push_back(tmpVecTmpGen);
+			//tmpGenetic.push_back(tmpVecTmpGen);
 		}
 		gesamtScore = gs*10;
 		if(gesamtScore == 0)
@@ -694,7 +703,7 @@ void 	Net::learn(float AnimalFitness[]){
 		}
 	
 		#ifdef D
-		printf("\n\ngesscore%i",gesamtScore);
+		printf("\n\ngesscore %i  ",gesamtScore);
 		printf("    %.5f\n",gs);
 		#endif
 		C1 = 0;
@@ -804,8 +813,8 @@ void 	Net::learn(float AnimalFitness[]){
 							printf("ERROR: C1 >= animals\n");
 						}
 					}
-					delete &randCrossoverPoint;
-					delete &buffCrossoverPoint;
+					//delete &randCrossoverPoint;
+					//delete &buffCrossoverPoint;
 					b = animals;
 				}
 				if(b == 0)
@@ -825,8 +834,8 @@ void 	Net::learn(float AnimalFitness[]){
 		}
 
 		tmpGenetic.clear();
-		tmpVecTmpGen.clear();;
-		delete &crossoverRandom;
+		//tmpVecTmpGen.clear();;
+		//delete &crossoverRandom;
 		//--------------------------------------
 		//---------------MUTATION---------------
 		if(mutationRate != 0)
@@ -858,6 +867,6 @@ vector<float> Net::getGen(int genNR)
 void Net::setGen(int genNR,vector<float> genData)
 {
 	Genetic[genNR] = genData;
-	delete &genData;
+	//delete &genData;
 }
 #endif
