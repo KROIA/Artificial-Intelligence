@@ -1,17 +1,17 @@
 /*
  
 Autor 	Alex Krieg
-Datum  	19.6.2017
-Version 5.42
+Datum  	6.6.2017
+Version 5.31
 
 
 
 */
-const float VERSION = 5.42;
-#include "E:\Users\Alex\Documents\C++\libraries\Net\Net.h"
-#include "E:\Users\Alex\Documents\C++\libraries\Net\Net.cpp"
-#include "E:\Users\Alex\Documents\C++\libraries\timer\timer.h"
-#include "E:\Users\Alex\Documents\C++\libraries\timer\timer.cpp"
+const float VERSION = 5.31;
+#include "E:\Users\Alex\Documents\C++\libraries\Net\Versionen\2.0\Net.h"
+#include "E:\Users\Alex\Documents\C++\libraries\Net\Versionen\2.0\Net.cpp"
+#include "E:\Users\Alex\Documents\C++\libraries\Timer\Timer.h"
+#include "E:\Users\Alex\Documents\C++\libraries\Timer\Timer.cpp"
 
 
 
@@ -35,7 +35,7 @@ const float VERSION = 5.42;
 using namespace std;
 
 //------------------MAP-------------------
-unsigned int mapSize = 20;
+ unsigned int mapSize = 20;
 int death = 0;
 int steps = 0;
 int food = 10;
@@ -73,8 +73,7 @@ int c = 0;
 int d = 0;
 Timer T3;
 Timer T1;
-Timer genPerSecondtimer;
-Timer timer;
+Timer Timer;
 
 FILE *file;
 char xxa[10] = {'a','.','t','x','t'};	//Netzwerk Konfiguration
@@ -95,16 +94,6 @@ unsigned int lastSaveBiggest 		= 0;
 vector<float> bestGen;
 int updateBestGen 					= 0;
 const int	animalViewMapSize		= 7;
-int exitProg						= 0;
-int testModeAnimal					= 0;
-int loopsPerAnimal					= 1;
-int loopsPerAnimalConfig			= 1;
-int genPerSecond					= 0;
-int genPerSecondCount				= 0;
-int starved							= 0;
-int skip							= 0;
-
-
 int animalViewMap[animalViewMapSize][animalViewMapSize] = {
 {0,0,0,1,0,0,0},
 {0,0,0,1,0,0,0},
@@ -133,7 +122,6 @@ COORD DE_COORD;
 
 Net *calcNet;
 
-
 void HandleNet(int animal);
 void Control(float c1,float c2,float c3,float c4,int offsetX,int offsetY);
 void getMapData();
@@ -147,77 +135,54 @@ void writeConfig();
 void readConfg();
 void saveBest();
 void setupMapView();
-void saveFile();
-void handleKeyBoeard(int whileForKey);
 
 void startNet(int i)
 {
-	float tmpFitness = 0;
-	skip = 0;
-	int loopsPerAnimalCounter = 0;
 	
-	for(loopsPerAnimalCounter = 0; loopsPerAnimalCounter < loopsPerAnimal; loopsPerAnimalCounter++)
+	randomizeFoodLocation();
+	for(a = 0; a<mapSize; a++)
 	{
-		randomizeFoodLocation();
-		for(a = 0; a<mapSize; a++)
+		for(b = 0; b<mapSize; b++)
 		{
-			for(b = 0; b<mapSize; b++)
-			{
-				lastMap[a][b] = -1;
-			}
+			lastMap[a][b] = -1;
 		}
-		setRandomStartPos();
-		countIllegalMoves = 0;
-		direction = direction_Config;
-		food = food_Config;
-		death = 0;
-		starved = 0;
-		steps = 0;
-		checkForCollision();
-	
-		if(TestMode >= 1)
-		{
-			while(death == 0)
-			{
-				if(timer.start(stopTimeTest))
-				{
-					death = 1;
-				}
-				HandleNet(i);
-				handleKeyBoeard(0);
-				if(TestMode == 0)
-				{
-					death = 1;
-					timer.stop();
-					return;
-				}
-				if(skip == 0)
-				{
-					Sleep(TestModeSpeed);
-				}
-			}
-		}
-		else
-		{
-			while(death == 0)
-			{
-				if(timer.start(stopTimeLearn))
-				{
-					death = 1;
-				}
-				HandleNet(i);
-			}
-		}
-		HandleNet(i);
-		timer.stop();
-		tmpFitness += fitness[i];
 	}
-	fitness[i] = tmpFitness / loopsPerAnimal;
+	setRandomStartPos();
+	countIllegalMoves = 0;
+	direction = direction_Config;
+	food = food_Config;
+	death = 0;
+	steps = 0;
+	checkForCollision();
+	if(TestMode >= 1)
+	{
+		while(death == 0)
+		{
+			if(Timer.start(stopTimeTest))
+			{
+				death = 1;
+			}
+			HandleNet(i);
+			Sleep(TestModeSpeed);
+		}
+	}
+	else
+	{
+		while(death == 0)
+		{
+			if(Timer.start(stopTimeLearn))
+			{
+				death = 1;
+			}
+			HandleNet(i);
+		}
+	}
+	HandleNet(i);
 	if(fitness[i]==0)
 	{
 		fitness[i] = 0.01;
 	}
-	
+	Timer.stop();
 }
 void draw(){
 	C_COORD.X = 38;
@@ -278,7 +243,6 @@ int main()
 	
 	calcNet->loadData(xxa);
 	calcNet->saveData(xxa);
-	loopsPerAnimal = loopsPerAnimalConfig;
 	//-------------------
 	
 	
@@ -329,21 +293,19 @@ int main()
 	//system("cls");
 	setupMapView();
 	draw();
-	while(exitProg == 0)
+	while(1)
 	{
 		if(TestMode >= 1)
 		{
-			draw();
-			
-			startNet(testModeAnimal);
-			if(TestMode >= 1)
+		
+			while(1)
 			{
-				handleKeyBoeard(1);	
-			}
-			testModeAnimal++;
-			if(testModeAnimal == animals)
-			{
-				testModeAnimal = 0;
+				for(xs = 0; xs < animals; xs++)
+				{
+					startNet(xs);
+					getch();
+					draw();
+				}
 			}
 		}
 		else
@@ -352,59 +314,66 @@ int main()
 			{
 				startNet(xs);
 			}
-			calcNet->learn(fitness);	
-			generation++;
-			genPerSecondCount++;
-			gesFitness = 0;
-			for(a = 0; a<animals; a++)
-			{
-					gesFitness+=fitness[a];
-					
-			}
-			gesFitness/=animals;
-			for(as = 0; as < averageSize-1; as++)
-			{
-				durchschnitt[as] = durchschnitt[as+1];
-			}
-			durchschnitt[averageSize-1] = gesFitness;
-			for(as = 0; as < averageSize-1; as++)
-			{
-				durchschnitt[0] += durchschnitt[as];
-			}
-			durchschnitt[0] /=  averageSize;
-			if(genPerSecondtimer.start(1000))
-			{
-				genPerSecond = genPerSecondCount;
-				genPerSecondCount = 0;
-			}
-			if(T3.start(guiUpdate) && TestMode == 0)
-			{
-				C_COORD.Y = 8;
-				SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),C_COORD);	C_COORD.Y ++;
-				printf("Gen / sec:\t%i  ",genPerSecond);
-				SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),C_COORD);	C_COORD.Y ++;
-				printf("Generation:\t%i",generation);
-				SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),C_COORD);	C_COORD.Y ++;
-				printf("Score:\t\t%.4f \n",gesFitness);
-				SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),C_COORD);	C_COORD.Y ++;
-				printf("Durchschnitt:\t%.4f",durchschnitt[0]);
-				SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),C_COORD);	C_COORD.Y ++;
-				printf("Net Data:\t");
-				for(a = 0; a<outputs; a++)
-				{
-						printf("%.3f\t",controls[a]);
-				}
-			}
-			if((generation - pauseGen) >= pauseIntervallFile)
-			{
-					
-				pauseGen = generation;			
-				saveFile();
-				
-			}
-			saveBest();
-			handleKeyBoeard(0);
 		}
+
+		
+		calcNet->learn(fitness);	
+		generation++;
+		gesFitness = 0;
+		for(a = 0; a<animals; a++)
+		{
+				gesFitness+=fitness[a]/1000;
+				
+		}
+		gesFitness/=animals;
+		for(as = 0; as < averageSize-1; as++)
+		{
+			durchschnitt[as] = durchschnitt[as+1];
+		}
+		durchschnitt[averageSize-1] = gesFitness;
+		for(as = 0; as < averageSize-1; as++)
+		{
+			durchschnitt[0] += durchschnitt[as];
+		}
+		durchschnitt[0] /=  averageSize;
+		if(T3.start(guiUpdate) && TestMode == 0)
+		{
+			C_COORD.Y = 8;
+			SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),C_COORD);	C_COORD.Y ++;
+			printf("Generation:\t%i",generation);
+			SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),C_COORD);	C_COORD.Y ++;
+			printf("Score:\t\t%.4f \n",gesFitness);
+			SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),C_COORD);	C_COORD.Y ++;
+			printf("Durchschnitt:\t%.4f",durchschnitt[0]);
+			SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),C_COORD);	C_COORD.Y ++;
+			printf("Net Data:\t");
+			for(a = 0; a<outputs; a++)
+			{
+					printf("%.3f\t",controls[a]);
+			}
+		}
+		if((generation - pauseGen) >= pauseIntervallFile)
+		{
+				
+			pauseGen = generation;			
+			//--------------FILE---------------
+			calcNet->saveData(xxa);
+			
+			file = fopen("learn.csv","a");
+			fprintf(file,"%.8f;%.8f;\n",gesFitness,durchschnitt[0]);
+			fclose(file);	
+			file = fopen("gen.txt","w");
+			fprintf(file,"%i\n",generation);
+			for(a = 0; a<averageSize; a++)
+			{
+				fprintf(file,"%.8f ",durchschnitt[a]);
+			}
+			fclose(file);
+			
+			//---------------------------------
+			
+		}
+		saveBest();
 	}
 	return 0;
 }
@@ -439,7 +408,6 @@ void HandleNet(int animal)
 		if(food <= 0)
 		{
 			death = 1;
-			starved = 1;
 		}
 		checkForCollision();
 		if(TestMode >= 1)
@@ -556,7 +524,7 @@ void Control(float c1,float c2,float c3,float c4,int offsetX,int offsetY)
 	}
 	if(direction > 3)
 	{
-		direction = direction-4;
+		direction = 4-direction;
 	}
 	switch(direction)
 	{
@@ -780,18 +748,7 @@ void drawMap(int offsetX,int offsetY)
 	COORD coord;
 	coord.X = offsetX;//X-->
 	coord.Y = offsetY;//Yv
-	if(T3.start(guiUpdate))
-	{
-		coord.Y = offsetY-3;
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);//YELLOW
-		SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),coord);
-		printf("starved   ");
-		coord.Y = offsetY-2;
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);//RED
-		SetConsoleCursorPosition(GetStdHandle( STD_OUTPUT_HANDLE ),coord);
-		printf("collided   ");
-	}
-	coord.Y = offsetY;
+	
 	for(a = 0; a<mapSize; a++)
 	{
 		coord.X = offsetX;
@@ -839,14 +796,7 @@ void drawMap(int offsetX,int offsetY)
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE ),coord);
 	if(death)
 	{
-		if(starved)
-		{
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 14);//YELLOW
-		}
-		else
-		{
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 12);//RED
-		}
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 4);//RED
 	}
 	else
 	{
@@ -1091,7 +1041,6 @@ void writeConfig()
 		fprintf(config,"startDirection %i\n"					,direction_Config);
 		fprintf(config,"TestMode %i\n"							,TestMode);
 		fprintf(config,"TestModeSpeed %i\n"						,TestModeSpeed);
-		fprintf(config,"loopsPerAnimal %i\n"					,loopsPerAnimalConfig);
 		fprintf(config,"ENDE");
 	}
 	fclose(config);
@@ -1227,12 +1176,7 @@ void readConfg()
 				if(TestModeSpeed < 1){TestModeSpeed = 1;}
 				printf("TestModeSpeed: %i\n",TestModeSpeed);
 			}
-			if(strcmp(Input,"loopsPerAnimal")==0){
-				fscanf(config,"%i",&loopsPerAnimalConfig);
-				if(loopsPerAnimalConfig < 1){loopsPerAnimalConfig = 1;}
-				if(loopsPerAnimalConfig > 5000){loopsPerAnimalConfig = 5000;}
-				printf("loopsPerAnimal: %i\n",loopsPerAnimalConfig);
-			}
+			
 			
 			if(strcmp(Input,"ENDE")==0){
 				printf("------ENDE------\n");
@@ -1405,75 +1349,6 @@ void setupMapView()
 		printf("ERROR:  False Anzahl Inputs, Inputs: %i\n\tEs muessen '10' Inputs sein bei dieser animal.txt konfiguration",inputs);
 		while(1)
 		{}
-	}
-}
-void saveFile()
-{
-//--------------FILE---------------
-	calcNet->saveData(xxa);
-	
-	file = fopen("learn.csv","a");
-	fprintf(file,"%.8f;%.8f;\n",gesFitness,durchschnitt[0]);
-	fclose(file);	
-	file = fopen("gen.txt","w");
-	fprintf(file,"%i\n",generation);
-	for(a = 0; a<averageSize; a++)
-	{
-		fprintf(file,"%.8f ",durchschnitt[a]);
-	}
-	fclose(file);
-	
-//---------------------------------
-}
-void handleKeyBoeard(int whileForKey)
-{
-	char key = 0;
-	if (kbhit() || whileForKey == 1)
-	{
-		key = getch();
-	}
-	switch(key)
-	{
-		case 'q':
-		{
-			saveFile();
-			exitProg = 1;
-			break;
-		}
-		case 'd':
-		{
-			TestMode++;
-			if(TestMode == 2)
-			{
-				TestMode = 0;
-				T3.stop();
-				loopsPerAnimal = loopsPerAnimalConfig;
-				
-			}
-			else
-			{
-				loopsPerAnimal = 1;
-				testModeAnimal = 0;
-			}
-			draw();
-			break;
-		}
-		case 's':	//Speed/skip
-		{
-			if(skip)
-			{
-				skip = 0;
-			}
-			else
-			{
-				skip = 1;
-			}
-		}
-		default:
-		{
-			
-			break;
-		}
 	}
 }
 
