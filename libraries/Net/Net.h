@@ -1,117 +1,101 @@
-//Autor Alex Krieg
-//V2.2							
-//30.5.2017
-
-//----------SETTINGS		//Nur eines von beiden definieren
-#define genetic
-//#define backprop
-//------------------
+/*
+Net 	REMAKE
+Autor 		Alex Krieg
+Version 	0.3
+Datum		11.10.2017
+*/
 #ifndef NET_H
 #define NET_H
 
-#include <stdlib.h>
-#include <stdio.h>
 #include <iostream>
-#include <windows.h>
-#include <vector>
 #include <math.h>
 #include <random>
+#include <windows.h>
+#include <vector>
+#include <stdlib.h>
+#include <stdio.h>
+
+#define DEBUG
+//#define DEBUG2
 
 using namespace std;
 
-
-
-struct In{
-  float weight;
-  float last_weight;
-  float data;
-};
-class Neuron;
-class Net;
 class Neuron
-{
-public:
-	Neuron();
-	~Neuron();
-	void setup(int in,float fac);
-	void setInput(float DATA[]);
-	float getOutput();
-	void calculateError(float nextError[],int anzPins);	//Array aus allen von vorne kommenden Errors*gewichte
-	float getErrorBack(int input);						//durch welchen Input der Error gehen soll
-	In *inputs;
-	float error;
-	void changeWeights(float NetError);
+{ 
+	public:
+								Neuron(int anzInputs,bool enaAver);
+								~Neuron();
 	
-private:
-	int a;
-	int b;
-	int c;
-	int d;
+	void 						setInput(vector<float> signal);
+	float 						getOutput();
+	float 						getWeightOnPos(int weightPos);
+	void 						setWeightOnPos(int weightPos,float _weight);
+	void 						setWeight(vector<float> _weight);
+	vector<float>				getWeight();
+	private:
 	
-	float factor;
-	float result;
-	int anzInputs;
-	default_random_engine randEngine;
+	vector<float>				weight;
+	float 						output;
+	int 						inputs;
+	bool 						enableAverage;
+	default_random_engine 		randEngine;
+	#ifdef DEBUG
+	void 						handleError(int _ERROR,int zusatz = 0);
+	#endif
 };
+/*
+ERROR CODE:
+1	->	netInput(vector<float> signal) signal.size() != Neuron::inputs
+2	->	getWeightOnPos(int weightPos) weightPos.size() <> Neuron::inputs"
+3	->	setWeightOnPos(int weightPos,float _weight) weightPos <> Neuron::inputs
+4	->	setWeight(vector<float> _weight) _weight.size() != Neuron::inputs"
+
+*/
 
 class Net
 {
-public:
-	#ifdef backprop
-		Net(int inputs,int hiddenX,int hiddenY,int outputs,float fac);	//X -> Neurons/Layer Y-> anz hidden Layer
-		float getOutput(int out);
-		void learn(float expactet[],int improve);
-		void setInputUnits(float input[]);
+	public:
+								Net(int in,int hidX,int hidY,int out,int ani,float fac,bool _bias,bool enaAver = true);
+								~Net();
+	
+	void 						saveData(string name);
+	void						loadData(string name);
+	void 						setInput(vector<float> signal);
+	void 						setInputOnPos(int pos,float signal);
+	vector<float>				getOutput();
+	void						learn(vector<float> fitness);
+	void						setGenomOfAnimal(int animal,vector<float> _genom);
+	void						setGenom(vector<vector<float>	> _genom);
+	vector<float>				getGenomOfAnimal(int ani);
+	vector<vector<float>	>	getGenom();
+	void 						run(int aditionalAnimal = 0);
+	void 						setMutationValue(float val);
+	unsigned int 				getGenomSize();
+				
+	vector<vector<Neuron>	>	hiddenLayer;			
+	vector<Neuron>				outputLayer;
+	
+	private:
+	void 						loadGenomOfAnimal();
+	bool 						checkForWrongParam();
+	FILE 					   *file;			
+	vector<vector<float>	>	genom;
+	vector<float>				input;
+	vector<float>				output;
+	int 						genomSize;				
+	int 						inputs;
+	int							hiddenX;		// x = nach rechts
+	int							hiddenY;		// y = nach unten
+	int							outputs;		
+	unsigned int				mutFactor;
+	int 						animals;
+	int 						currentAnimal;
+	bool 						bias;
+	int 						mutationChangeDivisor;
+	bool 						enableAverage;
+	default_random_engine 		randEngine;
+	#ifdef DEBUG
+	void 						handleError(int _ERROR,int zusatz = 0);
 	#endif
-	#ifdef genetic
-		Net(int inputs,int hiddenX,int hiddenY,int outputs,int ani,float mutat);	//X -> Neurons/Layer Y-> anz hidden Layer
-		float getOutput(int animal,int out);
-		void learn(float AnimalFitness[]);
-		void setInputUnits(float input[],int animal);
-		vector<float>  getGen(int genNR);
-		void setGen(int genNR,vector<float> genData);
-		
-	#endif
-	~Net();
-	
-	void loadData(char * file);
-	void saveData(char * file);
-	
-	float *FullOut;
-	void debug();
-	float netError;
-	unsigned long steps;
-private:
-
-	FILE * Myfile;
-	int a;
-	int b;
-	int c;
-	int d;
-	int e;
-	float factor;
-	int inputUnits;
-	int hiddenUnitsX; 
-	int hiddenUnitsY;
-	int outputUnits;
-	
-	vector<vector<Neuron>	> HiddenLayers;
-	Neuron *OutputLayer; 
-	
-	#ifdef genetic 
-	unsigned int animals;
-	unsigned int geneticSize;
-	vector<vector<float>	> Genetic;
-	vector<vector<float>	> FullOutOfAnimal;
-	float fitness;
-	unsigned int mutationRate;
-	
-	int C1; 
-	int C2;
-	int C3;
-	
-	#endif
-	default_random_engine randEngine;
 };
-
 #endif
