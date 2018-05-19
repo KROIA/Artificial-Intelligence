@@ -26,7 +26,7 @@ Datei: config.txt {
 	animal_mutationRate 0.1000			//Wie gross die Wahrscheinlichkeit ist dass ein Gewicht in jedem gen random ändert (1 = ändert immer, 0 = ändert nie)
 	animal_food 10					//Anzahl Essen das beim Start zur verfügung steht
 	animals 100					//Mit wie vielen Lebewesen gelernt wird
-	stopTimeLearn 500				//Zeit in ms wie lange ein Lebewesen zeit hat, wenn es nie stirbt bis es stierbt
+	stopTimeLearn 500				//Zeit in ms wie lange ein Lebewesen zeit hat, wenn es nie stirbt bis es stirbt
 	stopTimeTest 50000				//Das selbe, aber nur wärend der Testphase
 	debug_pauseIntervallFile 50			//Das selbe, aber für die Speicherung der Daten
 	debug_guiUpdate 1000				//Update der Konsole, ist nur in der Trainingsphase so
@@ -42,15 +42,4 @@ Datei: config.txt {
 	TestModeSpeed 100				//Wie schnell int ms die Simulation in der Testphase ist 
 	ENDE
 }
-//------------------------------------------------------------------------
-Dieser Code kann frei verwendet werden,
-ich würde mich freuen wenn ich weiss wo 
-der Code überall seine Verwendung findet. 
-Falls ihr eine Anleitung benötigt wie man eigenes 
-Projekt erstellt und das Netzwerk implementiert,
- der soll mich kontaktieren.
-//-----------------------------------SUPPORT------------------------------
-Falls ihr Fragen habt oder sonstige Anliegen zum Code, 
-dann kontaktiert mich unter:
-	alexkrieg@gmx.ch
 //------------------------------------------------------------------------
