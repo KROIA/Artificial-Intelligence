@@ -1,12 +1,14 @@
 /*
 Net 	REMAKE
 Autor 		Alex Krieg
-Version 	0.3
-Datum		11.10.2017
+Version 	1.2.1
+Datum		25.11.2017
 */
 #ifndef NET_H
 #define NET_H
-
+//-------------------------------
+#define NET_VERSION 0
+//-------------------------------
 #include <iostream>
 #include <math.h>
 #include <random>
@@ -26,16 +28,18 @@ class Neuron
 								Neuron(int anzInputs,bool enaAver);
 								~Neuron();
 	
-	void 						setInput(vector<float> signal);
-	float 						getOutput();
-	float 						getWeightOnPos(int weightPos);
-	void 						setWeightOnPos(int weightPos,float _weight);
-	void 						setWeight(vector<float> _weight);
-	vector<float>				getWeight();
+	void 						input(vector<float> signal);
+	float 						output();
+	float 						weight(int weightPos);
+	void 						weight(int weightPos,float __weight);
+	void 						weight(vector<float> __weight);
+	vector<float>				weight();
+	float 						netInput();
 	private:
 	
-	vector<float>				weight;
-	float 						output;
+	vector<float>				_weight;
+	float 						_netInput;
+	float 						_output;
 	int 						inputs;
 	bool 						enableAverage;
 	default_random_engine 		randEngine;
@@ -43,59 +47,47 @@ class Neuron
 	void 						handleError(int _ERROR,int zusatz = 0);
 	#endif
 };
-/*
-ERROR CODE:
-1	->	netInput(vector<float> signal) signal.size() != Neuron::inputs
-2	->	getWeightOnPos(int weightPos) weightPos.size() <> Neuron::inputs"
-3	->	setWeightOnPos(int weightPos,float _weight) weightPos <> Neuron::inputs
-4	->	setWeight(vector<float> _weight) _weight.size() != Neuron::inputs"
 
-*/
 
 class Net
 {
 	public:
-								Net(int in,int hidX,int hidY,int out,int ani,float fac,bool _bias,bool enaAver = true);
+								Net(int in,int hidX,int hidY,int out,bool _bias,bool enaAver = false);
 								~Net();
-	
-	void 						saveData(string name);
-	void						loadData(string name);
-	void 						setInput(vector<float> signal);
-	void 						setInputOnPos(int pos,float signal);
-	vector<float>				getOutput();
-	void						learn(vector<float> fitness);
-	void						setGenomOfAnimal(int animal,vector<float> _genom);
-	void						setGenom(vector<vector<float>	> _genom);
-	vector<float>				getGenomOfAnimal(int ani);
-	vector<vector<float>	>	getGenom();
-	void 						run(int aditionalAnimal = 0);
-	void 						setMutationValue(float val);
-	unsigned int 				getGenomSize();
+	void 						input(vector<float> signal);
+	void 						input(int pos,float signal);
+	vector<float>				input();
+	float						input(int pos);
+	vector<float>				output();
+	float						output(int pos);
+	void 						weightOfNet(vector<float> weight);
+	vector<float>				weightOfNet();
+	void 						run();
+	unsigned int 				genomSize();
 				
 	vector<vector<Neuron>	>	hiddenLayer;			
 	vector<Neuron>				outputLayer;
 	
-	private:
-	void 						loadGenomOfAnimal();
-	bool 						checkForWrongParam();
+	bool 						_checkForWrongParam();
+	
 	FILE 					   *file;			
-	vector<vector<float>	>	genom;
-	vector<float>				input;
-	vector<float>				output;
-	int 						genomSize;				
+	vector<float>				_input;
+	vector<float>				_output;
+	
+	int 						_weightSize;				
 	int 						inputs;
 	int							hiddenX;		// x = nach rechts
 	int							hiddenY;		// y = nach unten
 	int							outputs;		
-	unsigned int				mutFactor;
-	int 						animals;
-	int 						currentAnimal;
 	bool 						bias;
-	int 						mutationChangeDivisor;
 	bool 						enableAverage;
 	default_random_engine 		randEngine;
-	#ifdef DEBUG
-	void 						handleError(int _ERROR,int zusatz = 0);
-	#endif
+	string						_NET_VERSION;
+	
+	private:
+	vector<float>				weight_net;
+#ifdef DEBUG
+void 						_handleError(int _ERROR,int zusatz = 0);
+#endif
 };
 #endif
