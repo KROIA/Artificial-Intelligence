@@ -1,4 +1,4 @@
-#include "inc/qtgeneticnet.h"
+#include "qtgeneticnet.h"
 
 
 

@@ -1,9 +1,18 @@
 #include "enviroment.h"
 
+
 Enviroment::Enviroment(int x,int y,int obstAm,int anzRobot,float globalScale)
 {
+    Enviroment(x,y,obstAm,anzRobot,globalScale,6);
+}
+Enviroment::Enviroment(int x,int y,int obstAm,int anzRobot,float globalScale,unsigned int sensorAnz)
+{
+    Enviroment(x,y,obstAm,anzRobot,globalScale,6,15);
+}
+Enviroment::Enviroment(int x,int y,int obstAm,int anzRobot,float globalScale,unsigned int sensorAnz, float sensorAngle)
+{
   this->globalScale = globalScale;
-    qDebug("globalScale: %.8f %.8f",globalScale,this->globalScale);
+  qDebug("globalScale: %.8f %.8f",globalScale,this->globalScale);
   sizeX             = x*this->globalScale;
   sizeY             = y;
   _obsticleAmount    = obstAm;
@@ -26,7 +35,7 @@ Enviroment::Enviroment(int x,int y,int obstAm,int anzRobot,float globalScale)
   frame[1].set(QPoint(frameSize,0),QPoint(0,10),frameSize,frameWidth,frameColor);
   frame[2].set(QPoint(0,0),QPoint(0,10),frameSize,frameWidth,frameColor);
   frame[3].set(QPoint(0,frameSize),QPoint(10,0),frameSize,frameWidth,frameColor);
-  roboter = std::vector<Roboter>  (anzRobot,Roboter());
+  roboter = std::vector<Roboter>  (anzRobot,Roboter(sensorAnz,sensorAngle));
   for(int a=0; a<anzRobot; a++)
   {
     roboter[a].beamLength((float)_beamStandardLength*this->globalScale);

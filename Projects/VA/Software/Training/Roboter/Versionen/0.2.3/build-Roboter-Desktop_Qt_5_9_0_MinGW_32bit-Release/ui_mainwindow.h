@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.10.1
+** Created by: Qt User Interface Compiler version 5.9.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -442,56 +442,56 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "AI robot simulator", nullptr));
-        label_1->setText(QApplication::translate("MainWindow", "rechts", nullptr));
-        label_2->setText(QApplication::translate("MainWindow", "links", nullptr));
-        label_3->setText(QApplication::translate("MainWindow", "Motoren", nullptr));
-        net_control_toggle_button->setText(QApplication::translate("MainWindow", "KI control", nullptr));
-        net_control_left_label->setText(QApplication::translate("MainWindow", "0", nullptr));
-        net_control_right_label->setText(QApplication::translate("MainWindow", "0", nullptr));
-        label->setText(QApplication::translate("MainWindow", "step multiplayer", nullptr));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "AI robot simulator", Q_NULLPTR));
+        label_1->setText(QApplication::translate("MainWindow", "rechts", Q_NULLPTR));
+        label_2->setText(QApplication::translate("MainWindow", "links", Q_NULLPTR));
+        label_3->setText(QApplication::translate("MainWindow", "Motoren", Q_NULLPTR));
+        net_control_toggle_button->setText(QApplication::translate("MainWindow", "KI control", Q_NULLPTR));
+        net_control_left_label->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
+        net_control_right_label->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "step multiplayer", Q_NULLPTR));
         tod_label->setText(QString());
-        activeAnimal_label->setText(QApplication::translate("MainWindow", "0", nullptr));
-        label_5->setText(QApplication::translate("MainWindow", "Tier", nullptr));
-        label_6->setText(QApplication::translate("MainWindow", "score", nullptr));
-        net_score_label->setText(QApplication::translate("MainWindow", "0", nullptr));
-        net_control_kill_button->setText(QApplication::translate("MainWindow", "KILL", nullptr));
-        label_7->setText(QApplication::translate("MainWindow", "gen", nullptr));
-        generation_label->setText(QApplication::translate("MainWindow", "0", nullptr));
-        net_control_speedMultiplayerToOne_button->setText(QApplication::translate("MainWindow", "1", nullptr));
-        label_15->setText(QApplication::translate("MainWindow", "beam", nullptr));
-        net_control_beamLength_label->setText(QApplication::translate("MainWindow", "0", nullptr));
-        label_16->setText(QApplication::translate("MainWindow", "obsticle", nullptr));
-        net_control_obsticleAmount_label->setText(QApplication::translate("MainWindow", "0", nullptr));
-        label_17->setText(QApplication::translate("MainWindow", "AddSpeed", nullptr));
-        net_control_addSpeed_label->setText(QApplication::translate("MainWindow", "0", nullptr));
-        net_control_improve_checkBox->setText(QApplication::translate("MainWindow", "improve", nullptr));
-        net_control_speedMultiplayerTo10_button->setText(QApplication::translate("MainWindow", "10", nullptr));
-        net_control_speedMultiplayerTo100_button->setText(QApplication::translate("MainWindow", "100", nullptr));
-        net_control_speedMultiplayerTo30_button->setText(QApplication::translate("MainWindow", "30", nullptr));
-        net_control_speedMultiplayerTo60_button->setText(QApplication::translate("MainWindow", "60", nullptr));
-        label_19->setText(QApplication::translate("MainWindow", "T/s", nullptr));
-        ticksPerSecond_label->setText(QApplication::translate("MainWindow", "0", nullptr));
-        label_4->setText(QApplication::translate("MainWindow", "colorMulti", nullptr));
-        label_8->setText(QApplication::translate("MainWindow", "mut. fac.", nullptr));
+        activeAnimal_label->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
+        label_5->setText(QApplication::translate("MainWindow", "Tier", Q_NULLPTR));
+        label_6->setText(QApplication::translate("MainWindow", "score", Q_NULLPTR));
+        net_score_label->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
+        net_control_kill_button->setText(QApplication::translate("MainWindow", "KILL", Q_NULLPTR));
+        label_7->setText(QApplication::translate("MainWindow", "gen", Q_NULLPTR));
+        generation_label->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
+        net_control_speedMultiplayerToOne_button->setText(QApplication::translate("MainWindow", "1", Q_NULLPTR));
+        label_15->setText(QApplication::translate("MainWindow", "beam", Q_NULLPTR));
+        net_control_beamLength_label->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
+        label_16->setText(QApplication::translate("MainWindow", "obsticle", Q_NULLPTR));
+        net_control_obsticleAmount_label->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
+        label_17->setText(QApplication::translate("MainWindow", "AddSpeed", Q_NULLPTR));
+        net_control_addSpeed_label->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
+        net_control_improve_checkBox->setText(QApplication::translate("MainWindow", "improve", Q_NULLPTR));
+        net_control_speedMultiplayerTo10_button->setText(QApplication::translate("MainWindow", "10", Q_NULLPTR));
+        net_control_speedMultiplayerTo100_button->setText(QApplication::translate("MainWindow", "100", Q_NULLPTR));
+        net_control_speedMultiplayerTo30_button->setText(QApplication::translate("MainWindow", "30", Q_NULLPTR));
+        net_control_speedMultiplayerTo60_button->setText(QApplication::translate("MainWindow", "60", Q_NULLPTR));
+        label_19->setText(QApplication::translate("MainWindow", "T/s", Q_NULLPTR));
+        ticksPerSecond_label->setText(QApplication::translate("MainWindow", "0", Q_NULLPTR));
+        label_4->setText(QApplication::translate("MainWindow", "colorMulti", Q_NULLPTR));
+        label_8->setText(QApplication::translate("MainWindow", "mut. fac.", Q_NULLPTR));
         MutationFactor_label->setText(QString());
-        label_9->setText(QApplication::translate("MainWindow", "Tier", nullptr));
+        label_9->setText(QApplication::translate("MainWindow", "Tier", Q_NULLPTR));
         drawAnimal_label->setText(QString());
-        label_10->setText(QApplication::translate("MainWindow", "ConnectionSize", nullptr));
-        label_11->setText(QApplication::translate("MainWindow", "NeuronSize", nullptr));
-        label_12->setText(QApplication::translate("MainWindow", "yDistance", nullptr));
-        label_13->setText(QApplication::translate("MainWindow", "xDistance", nullptr));
-        label_14->setText(QApplication::translate("MainWindow", "PathSize", nullptr));
-        label_18->setText(QApplication::translate("MainWindow", "mut. div.", nullptr));
+        label_10->setText(QApplication::translate("MainWindow", "ConnectionSize", Q_NULLPTR));
+        label_11->setText(QApplication::translate("MainWindow", "NeuronSize", Q_NULLPTR));
+        label_12->setText(QApplication::translate("MainWindow", "yDistance", Q_NULLPTR));
+        label_13->setText(QApplication::translate("MainWindow", "xDistance", Q_NULLPTR));
+        label_14->setText(QApplication::translate("MainWindow", "PathSize", Q_NULLPTR));
+        label_18->setText(QApplication::translate("MainWindow", "mut. div.", Q_NULLPTR));
         MutationDivisor_label->setText(QString());
-        drawAnimal_checkBox->setText(QApplication::translate("MainWindow", "clipToBest", nullptr));
-        displayInputValue_checkBox->setText(QApplication::translate("MainWindow", "input values", nullptr));
-        displayHiddenValue_checkBox->setText(QApplication::translate("MainWindow", "hidden values", nullptr));
-        displayOutputValue_checkBox->setText(QApplication::translate("MainWindow", "output values", nullptr));
-        label_20->setText(QApplication::translate("MainWindow", "display:", nullptr));
+        drawAnimal_checkBox->setText(QApplication::translate("MainWindow", "clipToBest", Q_NULLPTR));
+        displayInputValue_checkBox->setText(QApplication::translate("MainWindow", "input values", Q_NULLPTR));
+        displayHiddenValue_checkBox->setText(QApplication::translate("MainWindow", "hidden values", Q_NULLPTR));
+        displayOutputValue_checkBox->setText(QApplication::translate("MainWindow", "output values", Q_NULLPTR));
+        label_20->setText(QApplication::translate("MainWindow", "display:", Q_NULLPTR));
         version_label->setText(QString());
-        pushButton->setText(QApplication::translate("MainWindow", "Save Net", nullptr));
-        startPath_label->setText(QApplication::translate("MainWindow", "PATH", nullptr));
+        pushButton->setText(QApplication::translate("MainWindow", "Save Net", Q_NULLPTR));
+        startPath_label->setText(QApplication::translate("MainWindow", "PATH", Q_NULLPTR));
     } // retranslateUi
 
 };

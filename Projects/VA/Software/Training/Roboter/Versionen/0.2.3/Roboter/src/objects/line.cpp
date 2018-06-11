@@ -5,7 +5,9 @@ Line::Line()
     __color = QColor(0,0,0);//black
     __width = 5;
     __pos   = std::vector<QPoint>(2);
+    __angleDeg = 0;
     set(QPoint(0,0),QPoint(1,1),1,__width,__color);
+
 
    // draw_obj = new Draw();
     //qDebug("newPtr: %i",&draw_obj);
@@ -20,20 +22,14 @@ Line::~Line()
 
 void Line::set(QPoint start,QPoint _angle,float _length,int _width,QColor _color)
 {
-    float xEnd;
-    float yEnd;
-    float ratio; //Seitenverhältnis
 
-    ratio = _length/sqrt(_angle.x()*_angle.x()+_angle.y()*_angle.y());
 
-    xEnd = ratio*_angle.x()+start.x();
-    yEnd = ratio*_angle.y()+start.y();
-    __pos[1]=QPoint(xEnd,yEnd);
     __pos[0]=start;
-    __length = sqrt((__pos[0].x()-__pos[1].x())*(__pos[0].x()-__pos[1].x())+(__pos[0].y()-__pos[1].y())*(__pos[0].y()-__pos[1].y()));
+
     __angle = _angle;
     __width = _width;
     __color = _color;
+    length(_length);
 }
 void Line::width(unsigned int _width)
 {
@@ -89,6 +85,21 @@ QPoint Line::angle()
 float Line::length()
 {
     return __length;
+}
+void Line::length(float lenght)
+{
+    float xEnd;
+    float yEnd;
+    float ratio; //Seitenverhältnis
+
+    ratio = lenght/sqrt(__angle.x()*__angle.x()+__angle.y()*__angle.y());
+
+    xEnd = ratio*__angle.x()+__pos[0].x();
+    yEnd = ratio*__angle.y()+__pos[0].y();
+    __pos[1]=QPoint(xEnd,yEnd);
+    __length = sqrt((__pos[0].x()-__pos[1].x())*(__pos[0].x()-__pos[1].x())+(__pos[0].y()-__pos[1].y())*(__pos[0].y()-__pos[1].y()));
+    //rotate(__angleDeg);
+    angle(angle());
 }
 void Line::color(QColor _color)
 {
@@ -296,5 +307,6 @@ void Line::rotate(float angle)
 void Line::rotate(QPoint rotPos,float angle)
 {
     __pos = matrix::rotate(__pos,rotPos,angle);
+    __angleDeg = angle;
 }
 

@@ -13,7 +13,6 @@ INPUT(
 ./debug/config.o
 ./debug/graph.o
 ./debug/worker.o
-./debug/qrc_resource.o
 ./debug/moc_mainwindow.o
 ./debug/moc_worker.o
 );

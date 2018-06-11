@@ -24,6 +24,8 @@ class Enviroment
 {
   public:
     Enviroment(int x,int y,int obstAm,int anzRobot,float globalScale);
+    Enviroment(int x,int y,int obstAm,int anzRobot,float globalScale,unsigned int sensorAnz);
+    Enviroment(int x,int y,int obstAm,int anzRobot,float globalScale,unsigned int sensorAnz,float sensorAngle);
     ~Enviroment();
     void randomGenObsticle();
     void randomGenRobots();

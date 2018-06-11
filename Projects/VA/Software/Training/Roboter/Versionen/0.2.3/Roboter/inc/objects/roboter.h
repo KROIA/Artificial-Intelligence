@@ -6,7 +6,7 @@
 class Roboter
 {
     public:
-    Roboter();
+    Roboter(unsigned int beamAmount,float beamAngle);
     ~Roboter();
 
     void set(QPoint _pos,float _angle,QColor _bodyColor,QColor _beamColor,unsigned int _radius,float _beamLength);
@@ -78,6 +78,8 @@ void setBeamPos();
     Line pfeil2;
     Line pfeil3;
     //std::vector<Line>   beam;
+    unsigned int beamAmount;
+    float beamAngle;
     std::vector<std::vector<Line>   >   beam;
     std::vector<QColor> __beamColor;
     std::vector<std::vector<float>  >  __beamLength;
