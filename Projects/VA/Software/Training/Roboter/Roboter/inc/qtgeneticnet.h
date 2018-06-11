@@ -3,12 +3,12 @@
 
 
 #include <geneticNet.h>
-#include "inc/objects/circle.h"
-#include "inc/objects/line.h"
-#include <inc/config.h>
+#include "objects\circle.h"
+#include "objects\line.h"
+#include <config.h>
 #include <QtCore>
 #include <QtGui>
-#include "inc/worker.h"
+#include "worker.h"
 #include <QLabel>
 const std::string QtGeneticNetVersion = "0.0.3";
 

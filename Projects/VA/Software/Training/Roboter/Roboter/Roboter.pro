@@ -23,16 +23,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 #INCLUDEPATH += C:\Users\Alex\Documents\QT\Roboter\Roboter\src
-INCLUDEPATH += E:\Users\Alex\Documents\QT\Roboter\Roboter\inc
-INCLUDEPATH += E:\Users\Alex\Documents\C++\libraries
+INCLUDEPATH += C:\Users\Alex\Documents\QT\Roboter\Roboter\inc
+INCLUDEPATH += C:\Users\Alex\Documents\C++\libraries
 #RESOURCES += C:\Users\Alex\Documents\C++\libraries
 #RESOURCES += C:\Users\Alex\Documents\C++\libraries\Net.cpp
 #RESOURCES += C:\Users\Alex\Documents\C++\libraries\geneticNet.cpp
 
 
 SOURCES += \
-        E:\Users\Alex\Documents\C++\libraries\geneticNet.cpp \
-        E:\Users\Alex\Documents\C++\libraries\Net.cpp \
+        C:\Users\Alex\Documents\C++\libraries\geneticNet.cpp \
+        C:\Users\Alex\Documents\C++\libraries\Net.cpp \
         src/main.cpp \
         src/mainwindow.cpp \
         src/enviroment.cpp \
@@ -63,10 +63,6 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
-RESOURCES += \
-    resource.qrc
-
 DISTFILES += \
     icon.ico
 RC_FILE = Roboter.rc
-

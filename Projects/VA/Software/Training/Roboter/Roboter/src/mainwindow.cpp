@@ -7,7 +7,7 @@ MainWindow::MainWindow(QWidget *parent) :
   QMainWindow(parent),ui(new Ui::MainWindow)
 {
   ui->setupUi(this);
-  ui->version_label->setText("Copyright © 2018, Alex Krieg\nAll rights reserved\n6.6.2018\nv0.2.2");
+  ui->version_label->setText("Copyright © 2018, Alex Krieg\nAll rights reserved\n6.6.2018\nv0.2.3");
 
   char cwd[MAX_PATH+1];
   _getcwd(cwd,MAX_PATH);
@@ -38,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
                                 net_animals,net_mutationFactor,net_enableBias,
                                 net_enableAverage,"robotConfig.txt","gen.net",this);
   net_animals = net->animals();
+  net_inputs = net->inputs();
  // qDebug("animals: %i",net_animals);
   readConfig();
   net->drawSetup(net_draw_neuronRadius,net_draw_abstandX,net_draw_abstandY,net_draw_connectionSize);
@@ -88,7 +89,16 @@ MainWindow::MainWindow(QWidget *parent) :
   //enviromentSize = 2400;
   enviromentDrawPos.setX(10);
   enviromentDrawPos.setY(10);
-  enviroment = new Enviroment(enviromentSize,enviromentSize,enviroment__obsticleAmount,net_animals,globalScale);
+  float sensorAngle = 15;
+  if(net->config->parameter("sensorWinkel") != net->config->noparam())
+  {
+      sensorAngle = stof(net->config->parameter("sensorWinkel").c_str());
+  }
+  else
+  {
+      net->config->parameter("sensorWinkel",to_string(sensorAngle));
+  }
+  enviroment = new Enviroment(enviromentSize,enviromentSize,enviroment__obsticleAmount,net_animals,globalScale,net_inputs,sensorAngle);
   for(int a=0; a<enviroment->roboter.size(); a++)
   {
     enviroment->roboter[a].beamAngleOffset(robot_beamAngleOffset);
@@ -634,15 +644,18 @@ void MainWindow::handleNet()
         if(net_deathAnimal[a] == false)
         {
           vector<float> inputs = enviroment->roboter[a].beamLength();
+          //inputs[0] = 100;
           for(int b=0; b<net_inputs; b++)
           {
-
+              /*if(a == net_activeAnimal)
+                qDebug() << b<<": "<<inputs[b];*/
               inputs[b] /= (1000*globalScale);
               float _rand = rand()%100;
               _rand = (_rand-50)/1000;
-              inputs[b] += _rand;
+              //inputs[b] += _rand;
               if(inputs[b] > 1){inputs[b] = 1;}
               inputs[b] = 1-inputs[b];
+
           }
           net->gohstNetInput(a,inputs);
         }

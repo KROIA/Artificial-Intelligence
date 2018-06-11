@@ -1,12 +1,13 @@
 #include "objects/roboter.h"
 
-Roboter::Roboter()
+Roboter::Roboter(unsigned int beamAmount,float beamAngle)
 {
     //body.Circle();
     int anzSensorStr = 2;
+    this->beamAmount = beamAmount;
+    this->beamAngle = beamAngle;
 
-
-    beam  = std::vector<std::vector<Line>   >(6,std::vector<Line>(anzSensorStr,Line()));
+    beam  = std::vector<std::vector<Line>   >(this->beamAmount,std::vector<Line>(anzSensorStr,Line()));
     pfeil1.width(2);
     pfeil2.width(2);
     pfeil3.width(2);
@@ -20,6 +21,7 @@ Roboter::Roboter()
     _turns      = 0;
     __enableBeamDraw = true;
     __beamAngleOffset = 0;
+
    // qDebug("Roboter();");
     update();
 }
@@ -374,7 +376,7 @@ void        Roboter::draw(QPainter *painter,QPoint drawPos)
     {
       for(int a=0; a<beam.size();a++)
       {
-          for(int b=0; b<beam[0].size();b++)
+          for(int b=0; b<beam[a].size();b++)
           {
               beam[a][b].draw(painter,drawPos);
           }
@@ -401,7 +403,8 @@ void        Roboter::setBeamPos()
     float _angle;
     for(int a=0; a<beam.size(); a++)
     {
-        switch(a)
+        _angle = absoluteAngle((a*360)/this->beamAmount + __beamAngleOffset);
+        /*switch(a)
         {
             case 0:
             {
@@ -410,12 +413,12 @@ void        Roboter::setBeamPos()
             }
             case 1:
             {
-                _angle = absoluteAngle(60 + __beamAngleOffset);
+                _angle = absoluteAngle(360/this->beamAmount + __beamAngleOffset);
                 break;
             }
             case 2:
             {
-                _angle = absoluteAngle(120 + __beamAngleOffset);
+                _angle = absoluteAngle(2*360/this->beamAmount + __beamAngleOffset);
                 break;
             }
             case 3:
@@ -433,13 +436,13 @@ void        Roboter::setBeamPos()
                 _angle = absoluteAngle(300 + __beamAngleOffset);
                 break;
             }
-        }
-        _angle = _angle-7.5;//7.5 weil der Sensor ein sichtfeld von 15grad hat
-        for(int b=0; b<beam[0].size(); b++)
+        }*/
+        _angle = _angle-beamAngle/2;//7.5 weil der Sensor ein sichtfeld von 15grad hat
+        for(int b=0; b<beam[a].size(); b++)
         {
             beam[a][b].set(QPoint(__pos.x(),__pos.y()+__radius),QPoint(0,1),__beamLength[a][b],beam[a][b].width(),__beamColor[a]);
             beam[a][b].rotate(__pos,__angle+_angle);
-            _angle+=(float)15/(float)(beam[0].size()-1);
+            _angle+=(float)beamAngle/(float)(beam[a].size()-1);
         }
     }
 }

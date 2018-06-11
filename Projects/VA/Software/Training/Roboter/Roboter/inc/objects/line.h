@@ -27,6 +27,7 @@ class Line
         void angle(QPoint _angle);
         QPoint angle();
         float length();
+        void length(float lenght);
 
         void color(QColor _color);
         QColor color();
@@ -45,6 +46,7 @@ class Line
         QColor __color;
         std::vector<QPoint> __pos;
         QPoint __angle;
+        float __angleDeg;
         float __length;
         int __width;
 
